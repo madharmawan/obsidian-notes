@@ -6,10 +6,12 @@ This note is a table of contents, for easy navigation to notes in CS 61A.
 Get back to main [[toc EECS]]
 
 CS 61A Notes:
+
 [[0. Introduction to CS 61A]]
 
 
 [[1. Python Interpreter]]
+
 - [[1.1 Expressions in the Terminal]]
 
 - [[1.2 Evaluation Procedure]]
