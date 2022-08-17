@@ -2,28 +2,42 @@
 
 ## **CS 61C: Great Ideas in Computer Architecture**
 
-This note is a table of contents, for easy navigation to notes in CS 61C. Get back to main [[toc EECS]]
+This note is a table of contents, for easy navigation to notes in CS 61C. 
+
+Get back to main [[toc EECS]]
 
 CS 61C Notes:
-
 
 [[0. Introduction to CS 61C]]
 
 [[1. Number Representation]]
+
 - [[1.1 Decmial, Binary, and Hexadecimal Number Systems]]
+
 - [[1.2 Signed Representations]]
+
 - [[1.3 Floating Point Representation]]
 
+
 [[2. C Programming]]
+
 - [[2.1 C Similarity to Java Syntax]]
-- [[2.4 Stack, Heap, Static, Code]]
+
 - [[2.2 Memory Allocation]]
+
 - [[2.3 Pointers and Arrays]]
 
+- [[2.4 Stack, Heap, Static, Code]]
+
+
 [[3. Memory]]
+
 - [[3.1 Sizes of Types, Casting]]
+
 - [[3.2 Memory Alignment]]
+
 - [[3.3 Endianness]]
+
 
 [[4. More C Programming]]
 - [[4.1 Higher-Order Functions in C]]
