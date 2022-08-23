@@ -26,24 +26,20 @@ CS 61A Notes:
 
 [[3. Control]]
 
-- [[3.1 Boolean Logic]]
+- [[3.1 If, Elif, Else Clauses]]
 
-- [[3.2 If, Elif, Else Clauses]]
+- [[3.2 While Clauses]]
 
-- [[3.3 While Clauses]]
+- [[3.3 Integer Hacking]]
 
-- [[3.4 Integer Hacking]]
-
-- [[3.5 Putting it All Together]]
+- [[3.4 Putting it All Together]]
 
 
-[[4. Higher Order Functions]]
+[[4. Higher Order Functions I]]
 
 - [[4.1 Functions as Parameters, Functions as Returns]]
 
 - [[4.2 Lambda Functions]]
-
-- [[4.3 Currying, Chaining, and Self-Reference]]
 
 
 [[5. Environment Diagrams]]
@@ -54,6 +50,13 @@ CS 61A Notes:
 
 - [[5.3 Potpourri of Examples]]
 
+[[6. Higher-Order Functions II]]
+
+- [[6.1 Currying]] 
+
+- [[6.2 Chaining]] 
+
+- [[6.3 Self-Reference]]
 
 [[6. Recursion and Tree Recursion]]
 
