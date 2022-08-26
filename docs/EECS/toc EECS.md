@@ -6,7 +6,7 @@ Navigate to the toc of a specific class:
 - [[toc CS61B]] Data Structures (Not started)
 - [[toc CS61C]] Great Ideas in Computer Architecture (WIP)
 - [[toc CS161]] Computer Security (Class in Progress)
-- [[toc CS168]] Introduction to the Internet: Architecture and Protocols (Class in Process)
+- [[toc CS168]] Introduction to the Internet: Architecture and Protocols (Class in Progress)
 - [[toc EECS 16A]] Designing Information Devices and Systems (Not Started)
 - [[toc EECS 151]] Introduction to Digital Design and Integrated Circuits (Class in Progress)
 

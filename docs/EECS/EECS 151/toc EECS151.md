@@ -4,4 +4,7 @@
 
 
 This note is a table of contents, for easy navigation to other notes. 
+
 Get back to main [[toc EECS]]
+
+[[1. Introduction to EECS 151]]
