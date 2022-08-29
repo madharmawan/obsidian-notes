@@ -6,3 +6,5 @@ Contents
 [[Security Principles]]
 
 - [[1. Security Principles]]
+
+- [[2. x86 Assembly and Call Stack]]

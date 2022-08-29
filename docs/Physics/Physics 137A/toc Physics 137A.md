@@ -4,3 +4,7 @@ This note serves as a toc for Physics 137A notes
 Contents:
 
 [[1. Blackbody Radiation]]
+
+[[2. Bohr Model]]
+
+
