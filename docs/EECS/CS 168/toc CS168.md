@@ -3,6 +3,15 @@ This note serves as the CS 168 toc. Get back to [[toc EECS]]
 
 ## **CS 168 Introduction to the Internet: Architecture and Protocols**
 
+Lectures:
+
+[[1. Introduction]]
+
+[[2. How the Internet Works - A Bottom-Up View]]
+
+[[3. Architectural Principles]]
+
+
 Notes:
 
 [[0. Introduction to CS 168]]

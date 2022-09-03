@@ -10,3 +10,8 @@ Get back to main [[toc EECS]]
 [[1. Introduction to EECS 151]]
 
 [[2. Design Abstraction]]
+
+[[3. Metrics and Verilog]]
+
+
+[[A. Verilog]]
