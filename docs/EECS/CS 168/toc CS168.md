@@ -11,16 +11,29 @@ Lectures:
 
 [[3. Architectural Principles]]
 
+[[4. Designing the Internet]]
+
+
 
 Notes:
 
 [[0. Introduction to CS 168]]
 
 [[1. Computer Networks and the Internet]]
+
 - [[1.1 What is the Internet?]]
 
 
 [[2. Application Layer]]
+
+- [[2.1 Principles of Network Applications]]
+
+- [[2.2 The Web and HTTP]]
+
+- [[2.3 Electronic Mail in the Internet]]
+
+- [[2.4 DNS - The Internet's Directory Service]]
+
 
 [[3. Transport Layer]]
 

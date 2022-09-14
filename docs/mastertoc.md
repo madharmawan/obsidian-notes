@@ -3,8 +3,11 @@
 This note is the master toc. It splits into the toc of subjects: EECS, MSE, Physics, Math
 
 [[toc EECS]]
+
 [[toc MSE]]
+
 [[toc Physics]]
+
 [[toc Math]]
 
 ### Brief Blurb on These Notes

@@ -7,4 +7,10 @@ Contents:
 
 [[2. Bohr Model]]
 
+[[3. Wavefunctions]]
+
+[[4. Fourier Stuff]]
+
+[[5. Wavepackets]]
+
 

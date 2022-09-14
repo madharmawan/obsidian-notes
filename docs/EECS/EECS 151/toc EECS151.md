@@ -13,5 +13,6 @@ Get back to main [[toc EECS]]
 
 [[3. Metrics and Verilog]]
 
+[[4. Verilog II]]
 
 [[A. Verilog]]
