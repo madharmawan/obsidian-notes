@@ -15,4 +15,12 @@ Get back to main [[toc EECS]]
 
 [[4. Verilog II]]
 
+[[6. Combinational Logic II]]
+
+[[7. Finite State Machines]]
+
+[[8. RISC-V Datapath I]]
+
+[[9. RISC-V Datapath II]]
+
 [[A. Verilog]]

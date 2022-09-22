@@ -13,6 +13,12 @@ Lectures:
 
 [[4. Designing the Internet]]
 
+[[5. Routing Fundamentals]]
+
+[[6. Routing Approaches I]]
+
+[[7. Routing Approaches II]]
+
 
 
 Notes:
