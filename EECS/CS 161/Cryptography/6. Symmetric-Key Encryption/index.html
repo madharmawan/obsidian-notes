@@ -1,0 +1,1820 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.3.1, mkdocs-material-8.5.3" name="generator"/>
+<title>6. Symmetric-Key Encryption - madharmawan</title>
+<link href="../../../../assets/stylesheets/main.7a952b86.min.css" rel="stylesheet"/>
+<link href="../../../../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="green" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#6-symmetric-key-encryption">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="madharmawan" class="md-header__button md-logo" data-md-component="logo" href="../../../.." title="madharmawan">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            madharmawan
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              6. Symmetric-Key Encryption
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="green" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="green" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="madharmawan" class="md-nav__button md-logo" data-md-component="logo" href="../../../.." title="madharmawan">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    madharmawan
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../..">
+        Welcome
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../mastertoc/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          EECS
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="EECS" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          EECS
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../toc%20EECS/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          CS 161
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 161" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          CS 161
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../toc%20CS161/">
+        Table of Contents CS 161
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" id="__nav_3_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_2">
+          Cryptography
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Cryptography" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Cryptography
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.%20Introduction%20to%20Cryptography/">
+        5. Introduction to Cryptography
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          6. Symmetric-Key Encryption
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        6. Symmetric-Key Encryption
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ind-cpa-security">
+    IND-CPA Security
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#xor-review">
+    XOR Review
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#one-time-pad">
+    One Time Pad
+  </a>
+<nav aria-label="One Time Pad" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#proof-that-one-time-pad-is-ind-cpa-secure">
+    Proof that One-Time Pad is IND-CPA Secure
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#block-ciphers">
+    Block Ciphers
+  </a>
+<nav aria-label="Block Ciphers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#block-cipher-security">
+    Block Cipher Security
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#block-cipher-modes-of-operation">
+    Block Cipher Modes of Operation
+  </a>
+<nav aria-label="Block Cipher Modes of Operation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#electronic-code-book-ecb-mode">
+    Electronic Code Book (ECB) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cipher-block-chaining-cbc-mode">
+    Cipher Block Chaining (CBC) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ciphertext-feedback-cfb-mode">
+    Ciphertext Feedback (CFB) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#output-feedback-ofb-mode">
+    Output Feedback (OFB) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#counter-ctr-mode">
+    Counter (CTR) Mode
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parallelization">
+    Parallelization
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#padding">
+    Padding
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reusing-ivs-is-insecure">
+    Reusing IVs is Insecure
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../7.%20Cryptographic%20Hashes/">
+        7. Cryptographic Hashes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" id="__nav_3_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_3">
+          Memory Safety
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Memory Safety" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Memory Safety
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Memory%20Safety/2.%20x86%20Assembly%20and%20Call%20Stack/">
+        2. x86 Assembly and Call Stack
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Memory%20Safety/3.%20Memory%20Safety%20Vulnerabilities/">
+        3. Memory Safety Vulnerabilities
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Memory%20Safety/4.%20Mitigating%20Memory-Safety%20Vulnerabilities/">
+        4. Mitigating Memory-Safety Vulnerabilities
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_4" id="__nav_3_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_4">
+          Security Principles
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Security Principles" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_4">
+<span class="md-nav__icon md-icon"></span>
+          Security Principles
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Security%20Principles/1.%20Security%20Principles/">
+        1. Security Principles
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          CS 168
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 168" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          CS 168
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/toc%20CS168/">
+        Table of Contents CS 168
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_2" id="__nav_3_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_2">
+          0. Introduction to CS 168
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="0. Introduction to CS 168" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_2">
+<span class="md-nav__icon md-icon"></span>
+          0. Introduction to CS 168
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/0.%20Introduction%20to%20CS%20168/0.%20Introduction%20to%20CS%20168/">
+        0. Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_3" id="__nav_3_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_3">
+          1. Overview of Computer Networks and the Internet
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1. Overview of Computer Networks and the Internet" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_3">
+<span class="md-nav__icon md-icon"></span>
+          1. Overview of Computer Networks and the Internet
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/1.%20Overview%20of%20Computer%20Networks%20and%20the%20Internet/1.%20Computer%20Networks%20and%20the%20Internet/">
+        1. Computer Networks and the Internet
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_4" id="__nav_3_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_4">
+          2. Application Layer
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="2. Application Layer" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_4">
+<span class="md-nav__icon md-icon"></span>
+          2. Application Layer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.%20Application%20Layer/">
+        2. Application Layer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.0%20Key%20Terms/">
+        2.0 Key Terms
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.1%20Principles%20of%20Network%20Applications/">
+        2.1 Principles of Network Appications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.2%20The%20Web%20and%20HTTP/">
+        2.2 The Web and HTTP
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.3%20Electronic%20Mail%20in%20the%20Internet/">
+        2.3 Electronic Mail in the Internet
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.4%20DNS%20-%20The%20Internet%27s%20Directory%20Service/">
+        2.4 DNS - The Internet's Directory Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/2.%20Application%20Layer/2.5%20Peer-to-Peer%20File%20Distribution/">
+        2.5 Peer-to-Peer File Distribution
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_5" id="__nav_3_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_5">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Lectures" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_5">
+<span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_5_1" id="__nav_3_3_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_5_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Introduction" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_3_3_5_1">
+<span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/Lectures/Introduction/2.%20How%20the%20Internet%20Works%20-%20A%20Bottom-Up%20View/">
+        2. How the Internet Works - A Bottom-Up View
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/Lectures/Introduction/3.%20Architectural%20Principles/">
+        3. Architectural Principles
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/Lectures/Introduction/4.%20Designing%20the%20Internet/">
+        4. Designing the Internet
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_5_2" id="__nav_3_3_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_5_2">
+          Routing
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Routing" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_3_3_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Routing
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/Lectures/Routing/5.%20Routing%20Fundamentals/">
+        5. Routing Fundamentals
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/Lectures/Routing/6.%20Routing%20Approaches%20I/">
+        6. Routing Approaches I
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%20168/Lectures/Routing/7.%20Routing%20Approaches%20II/">
+        7. Routing Approaches II
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4">
+          CS 61A
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 61A" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          CS 61A
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/0.%20Introduction%20to%20CS%2061A/">
+        0. Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/1.%20Python%20Interpreter/">
+        1. Python Interpreter
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/1.1%20Expressions%20in%20the%20Terminal/">
+        1.1 Expressions in the Terminal
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/1.2%20Evaluation%20Procedure/">
+        1.2 Evaluation Procedure
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/2.%20Expressions%2C%20Variables%2C%20and%20Functions/">
+        2. Expressions, Variables, and Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/2.1%20Expressions%20and%20Variables/">
+        2.1 Expressions and Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/2.2%20Defining%20and%20Using%20Functions/">
+        2.2 Defining and Using Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/3.%20Control/">
+        3. Control
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/3.1%20If%2C%20Elif%2C%20Else%20Clauses/">
+        3.1 If, Elif, Else Clauses
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/4.%20Higher-Order%20Functions%20I/">
+        4. Higher Order Functions I
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/4.1%20Functions%20as%20Parameters%2C%20Functions%20as%20Returns/">
+        4.1 Functions as Parameters, Functions as Returns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061A/toc%20CS61A/">
+        Table of Contents
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" id="__nav_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_5">
+          CS 61B
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 61B" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+          CS 61B
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061B/toc%20CS61B/">
+        Table of Contents
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6">
+          CS 61C
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 61C" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+          CS 61C
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/toc%20CS61C/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_2" id="__nav_3_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_2">
+          0. Introduction to CS 61C
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="0. Introduction to CS 61C" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_2">
+<span class="md-nav__icon md-icon"></span>
+          0. Introduction to CS 61C
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/0.%20Introduction%20to%20CS%2061C/0.%20Introduction%20to%20CS%2061C/">
+        0. Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_3" id="__nav_3_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_3">
+          1. Number Representation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1. Number Representation" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_3">
+<span class="md-nav__icon md-icon"></span>
+          1. Number Representation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/1.%20Number%20Representation/1.%20Number%20Representation/">
+        1. Number Representation
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/1.%20Number%20Representation/1.1%20Decmial%2C%20Binary%2C%20and%20Hexadecimal%20Number%20Systems/">
+        1.1 Decimal, Binary, and Hexadecmial Number Systems
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/1.%20Number%20Representation/1.2%20Signed%20Representations/">
+        1.2 Signed Representations
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/1.%20Number%20Representation/1.3%20Floating%20Point%20Representation/">
+        1.3 Floating Point Representation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_4" id="__nav_3_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_4">
+          10. Synchronous Digital Systems (SDS)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="10. Synchronous Digital Systems (SDS)" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_4">
+<span class="md-nav__icon md-icon"></span>
+          10. Synchronous Digital Systems (SDS)
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/10.%20Synchronous%20Digital%20Systems%20%28SDS%29/10.%20Synchonous%20Digital%20Systems%20%28SDS%29/">
+        10. Synchonous Digital Systems (SDS)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_5" id="__nav_3_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_5">
+          11. Finite State Machines (FSMs)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="11. Finite State Machines (FSMs)" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_5">
+<span class="md-nav__icon md-icon"></span>
+          11. Finite State Machines (FSMs)
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/11.%20Finite%20State%20Machines%20%28FSMs%29/11.%20Finite%20State%20Machines/">
+        11. Finite State Machines
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_6" id="__nav_3_6_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_6">
+          12. RISC V Datapath and Control Logic
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="12. RISC V Datapath and Control Logic" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_6">
+<span class="md-nav__icon md-icon"></span>
+          12. RISC V Datapath and Control Logic
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/12.%20RISC-V%20Datapath%20and%20Control%20Logic/12.%20RISC-V%20Datapath%20and%20Control%20Logic/">
+        12. RISC V Datapath and Control Logic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_7" id="__nav_3_6_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_7">
+          13. Datapath Performance and Pipelining
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="13. Datapath Performance and Pipelining" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_7">
+<span class="md-nav__icon md-icon"></span>
+          13. Datapath Performance and Pipelining
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/13.%20Datapath%20Performance%20and%20Pipelining/13.%20Datapath%20Performance%20and%20Pipelining/">
+        13. Datapath Performance and Pipelining
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_8" id="__nav_3_6_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_8">
+          14. Operating Systems
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="14. Operating Systems" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_8">
+<span class="md-nav__icon md-icon"></span>
+          14. Operating Systems
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/14.%20Operating%20Systems/14.%20Operating%20Systems%20%28OS%29/">
+        14. Operating Systems (OS)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_9" id="__nav_3_6_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_9">
+          15. Data and Thread Level Parallelism
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="15. Data and Thread Level Parallelism" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_9">
+<span class="md-nav__icon md-icon"></span>
+          15. Data and Thread Level Parallelism
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/15.%20Data%20and%20Thread%20Level%20Parallelism/15.%20Data%20and%20Thread%20Level%20Parallelism/">
+        15. Data and Thread Level Parallelism
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_10" id="__nav_3_6_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_10">
+          16. Caches
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="16. Caches" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_10">
+<span class="md-nav__icon md-icon"></span>
+          16. Caches
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/16.%20Caches/16.%20Caches/">
+        16. Caches
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_11" id="__nav_3_6_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_11">
+          17. Cache Coherency
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="17. Cache Coherency" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_11">
+<span class="md-nav__icon md-icon"></span>
+          17. Cache Coherency
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/17.%20Cache%20Coherency/17.%20Cache%20Coherency/">
+        17. Cache Coherency
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_12" id="__nav_3_6_12" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_12">
+          18. Virtual Memory
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="18. Virtual Memory" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_12">
+<span class="md-nav__icon md-icon"></span>
+          18. Virtual Memory
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/18.%20Virtual%20Memory/18.%20Virtual%20Memory/">
+        18. Virtual Memory
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_13" id="__nav_3_6_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_13">
+          19. Dependability
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="19. Dependability" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_13">
+<span class="md-nav__icon md-icon"></span>
+          19. Dependability
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/19.%20Dependability/19.%20Dependability/">
+        19. Dependability
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_14" id="__nav_3_6_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_14">
+          2. C Programming
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="2. C Programming" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_14">
+<span class="md-nav__icon md-icon"></span>
+          2. C Programming
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/2.%20C%20Programming/2.%20C%20Programming/">
+        2. C Programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/2.%20C%20Programming/2.1%20C%20Similarity%20to%20Java%20Syntax/">
+        2.1 C Similarity to Java Syntax
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/2.%20C%20Programming/2.2%20Memory%20Allocation/">
+        2.2 Memory Allocation
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/2.%20C%20Programming/2.3%20Pointers%20and%20Arrays/">
+        2.4 Pointers and Arrays
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/2.%20C%20Programming/2.4%20Stack%2C%20Heap%2C%20Static%2C%20Code/">
+        2.2 Stack, Heap, Static, Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_15" id="__nav_3_6_15" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_15">
+          3. Memory
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="3. Memory" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_15">
+<span class="md-nav__icon md-icon"></span>
+          3. Memory
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/3.%20Memory/3.%20Memory/">
+        3. Memory
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/3.%20Memory/3.1%20Sizes%20of%20Types%2C%20Casting/">
+        3.1 Sizes of Types, Casting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/3.%20Memory/3.2%20Memory%20Alignment/">
+        3.2 Memory Alignment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/3.%20Memory/3.3%20Endianness/">
+        3.3 Endianness
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_16" id="__nav_3_6_16" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_16">
+          4. More C Programming
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="4. More C Programming" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_16">
+<span class="md-nav__icon md-icon"></span>
+          4. More C Programming
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/4.%20More%20C%20Programming/4.%20More%20C%20Programming/">
+        4. More C Programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/4.%20More%20C%20Programming/4.1%20Higher-Order%20Functions%20in%20C/">
+        4.1 Higher Order Functions in C
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/4.%20More%20C%20Programming/4.2%20Structs%20and%20Unions/">
+        4.2 Structs and Unions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/4.%20More%20C%20Programming/4.3%20Defines/">
+        4.3 Defines
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/4.%20More%20C%20Programming/4.4%20Programming%20in%20C/">
+        4.4 Programming in C
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_17" id="__nav_3_6_17" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_17">
+          5. RISC V Programming
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5. RISC V Programming" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_17">
+<span class="md-nav__icon md-icon"></span>
+          5. RISC V Programming
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/5.%20RISC-V%20Programming/5.%20RISC-V%20Programming/">
+        5. RISC-V Programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/5.%20RISC-V%20Programming/5.1%20RISC-V%20Registers/">
+        5.1 RISC V Registers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/5.%20RISC-V%20Programming/5.2%20Arithmetic%20and%20Bitwise%20Operators/">
+        5.2 Arithmetic and Bitwise Operators
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/5.%20RISC-V%20Programming/5.3%20Branching/">
+        5.3 Branching
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/5.%20RISC-V%20Programming/5.4%20Loads%20and%20Stores/">
+        5.4 Loads and Stores
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/5.%20RISC-V%20Programming/5.5%20Other%20RISC-V%20Instructions/">
+        5.5 Other RISC V Instructions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_18" id="__nav_3_6_18" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_18">
+          6. RISC V Calling Convention
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="6. RISC V Calling Convention" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_18">
+<span class="md-nav__icon md-icon"></span>
+          6. RISC V Calling Convention
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.%20RISC-V%20Calling%20Convention/">
+        6. RISC-V Calling Convention
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.1%20RISC-V%20Register%20Names/">
+        6.1 RISC V Register Names
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.2%20The%20Stack%20Pointer%2C%20Callee%2C%20Caller%20Conventions/">
+        6.2 The Stack Pointer, Callee, Caller Conventions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.3%20An%20Example%20RISC-V%20Code%20with%20Calling%20Convention/">
+        6.3 An Example RISC V Code with Calling Convention
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.4%20Recursive%20Functions%20in%20RISC-V/">
+        6.4 Recursive Functions in RISC V
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_19" id="__nav_3_6_19" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_19">
+          7. RISC V Instruction Formats
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="7. RISC V Instruction Formats" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_19">
+<span class="md-nav__icon md-icon"></span>
+          7. RISC V Instruction Formats
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/7.%20RISC-V%20Instruction%20Formats/7.%20RISC-V%20Instruction%20Formats/">
+        7. RISC-V Instruction Formats
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/7.%20RISC-V%20Instruction%20Formats/7.5%20Self-Modifying%20Code/">
+        7.5 Self-Modifying Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_20" id="__nav_3_6_20" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_20">
+          8. Compiler, Assembler, Linker, Loader (CALL)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="8. Compiler, Assembler, Linker, Loader (CALL)" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_20">
+<span class="md-nav__icon md-icon"></span>
+          8. Compiler, Assembler, Linker, Loader (CALL)
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/8.%20Compiler%2C%20Assembler%2C%20Linker%2C%20Loader%20%28CALL%29/8.%20Compiler%2C%20Assembler%2C%20Linker%2C%20Loader%20%28CALL%29/">
+        8. Compiler, Assembler, Linker, Loader (CALL)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_21" id="__nav_3_6_21" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_21">
+          9. Combinatorial Logic, Boolean Algebra
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="9. Combinatorial Logic, Boolean Algebra" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_21">
+<span class="md-nav__icon md-icon"></span>
+          9. Combinatorial Logic, Boolean Algebra
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../CS%2061C/9.%20Combinatorial%20Logic%2C%20Boolean%20Algebra/9.%20Combinatorial%20Logic%2C%20Boolean%20Algebra/">
+        9. Combinatorial Logic, Boolean Algebra
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7" id="__nav_3_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7">
+          EECS 151
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="EECS 151" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+          EECS 151
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/toc%20EECS151/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_2" id="__nav_3_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_2">
+          1. Introduction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1. Introduction" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_2">
+<span class="md-nav__icon md-icon"></span>
+          1. Introduction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/1.%20Introduction/1.%20Introduction%20to%20EECS%20151/">
+        1. Introduction to EECS 151
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_3" id="__nav_3_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_3">
+          2. Design Abstraction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="2. Design Abstraction" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_3">
+<span class="md-nav__icon md-icon"></span>
+          2. Design Abstraction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/2.%20Design%20Abstraction/2.%20Design%20Abstraction/">
+        2. Design Abstraction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_4" id="__nav_3_7_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_4">
+          3. Metrics and Verilog
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="3. Metrics and Verilog" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_4">
+<span class="md-nav__icon md-icon"></span>
+          3. Metrics and Verilog
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/3.%20Metrics%20and%20Verilog/3.%20Metrics%20and%20Verilog/">
+        3. Metrics and Verilog
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_5" id="__nav_3_7_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_5">
+          4. Verilog II
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="4. Verilog II" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_5">
+<span class="md-nav__icon md-icon"></span>
+          4. Verilog II
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/4.%20Verilog%20II/4.%20Verilog%20II/">
+        4. Verilog II
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_6" id="__nav_3_7_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_6">
+          5. Combinational Logic I
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5. Combinational Logic I" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_6">
+<span class="md-nav__icon md-icon"></span>
+          5. Combinational Logic I
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/5.%20Combinational%20Logic%20I/5.%20Combinational%20Logic%20I/">
+        5. Combinational Logic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_7" id="__nav_3_7_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_7">
+          6. Combinational Logic II
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="6. Combinational Logic II" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_7">
+<span class="md-nav__icon md-icon"></span>
+          6. Combinational Logic II
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/6.%20Combinational%20Logic%20II/6.%20Combinational%20Logic%20II/">
+        6. Combinational Logic II and FSM I
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_8" id="__nav_3_7_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_8">
+          7. Finite State Machines
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="7. Finite State Machines" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_8">
+<span class="md-nav__icon md-icon"></span>
+          7. Finite State Machines
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/7.%20Finite%20State%20Machines/7.%20Finite%20State%20Machines/">
+        7. Finite State Machines
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_9" id="__nav_3_7_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_9">
+          8. RISC V Datapath I
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="8. RISC V Datapath I" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_9">
+<span class="md-nav__icon md-icon"></span>
+          8. RISC V Datapath I
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/8.%20RISC-V%20Datapath%20I/8.%20RISC-V%20Datapath%20I/">
+        9. RISC-V Datapath I
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_10" id="__nav_3_7_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_10">
+          9. RISC V Datapath II
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="9. RISC V Datapath II" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_10">
+<span class="md-nav__icon md-icon"></span>
+          9. RISC V Datapath II
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/9.%20RISC-V%20Datapath%20II/9.%20RISC-V%20Datapath%20II/">
+        9. RISC-V Datapath II
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_11" id="__nav_3_7_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_11">
+          A. .Verilog
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="A. .Verilog" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_11">
+<span class="md-nav__icon md-icon"></span>
+          A. .Verilog
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%20151/A.%20.Verilog/A.%20Verilog/">
+        A. Verilog
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8" id="__nav_3_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_8">
+          EECS 16A
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="EECS 16A" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_8">
+<span class="md-nav__icon md-icon"></span>
+          EECS 16A
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%2016A/0.%20Introduction%20to%20EECS%2016A/">
+        0. Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../EECS%2016A/toc%20EECS%2016A/">
+        Table of Contents
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Physics
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Physics" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Physics
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../Physics/toc%20Physics/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Physics 137A
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Physics 137A" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Physics 137A
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../Physics/Physics%20137A/1.%20Blackbody%20Radiation/">
+        1. Origins of Quantum Theory; UV Catastrophe
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../Physics/Physics%20137A/2.%20Bohr%20Model/">
+        2. Bohr Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../Physics/Physics%20137A/3.%20Wavefunctions/">
+        3. Wavefunctions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../Physics/Physics%20137A/4.%20Fourier%20Stuff/">
+        4. Fourier Stuff
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../Physics/Physics%20137A/toc%20Physics%20137A/">
+        Table of Contents Physics 137A
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ind-cpa-security">
+    IND-CPA Security
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#xor-review">
+    XOR Review
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#one-time-pad">
+    One Time Pad
+  </a>
+<nav aria-label="One Time Pad" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#proof-that-one-time-pad-is-ind-cpa-secure">
+    Proof that One-Time Pad is IND-CPA Secure
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#block-ciphers">
+    Block Ciphers
+  </a>
+<nav aria-label="Block Ciphers" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#block-cipher-security">
+    Block Cipher Security
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#block-cipher-modes-of-operation">
+    Block Cipher Modes of Operation
+  </a>
+<nav aria-label="Block Cipher Modes of Operation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#electronic-code-book-ecb-mode">
+    Electronic Code Book (ECB) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cipher-block-chaining-cbc-mode">
+    Cipher Block Chaining (CBC) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#ciphertext-feedback-cfb-mode">
+    Ciphertext Feedback (CFB) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#output-feedback-ofb-mode">
+    Output Feedback (OFB) Mode
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#counter-ctr-mode">
+    Counter (CTR) Mode
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#parallelization">
+    Parallelization
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#padding">
+    Padding
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#reusing-ivs-is-insecure">
+    Reusing IVs is Insecure
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="6-symmetric-key-encryption">6. Symmetric-Key Encryption<a class="headerlink" href="#6-symmetric-key-encryption" title="Permanent link">¶</a></h1>
+<h2 id="ind-cpa-security">IND-CPA Security<a class="headerlink" href="#ind-cpa-security" title="Permanent link">¶</a></h2>
+<p>Recall confidentiality means that an attacker cannot read our messages. However, let's make it more precise and rigorious: </p>
+<pre><code>The cipher text $C$ should give the attacker no additional information about the message $M$. In other words, the attacker should not learn any new information about $M$ beyond what they already knew before seeing $C$.
+</code></pre>
+<p>Further formalize via experiment. Alice has encrypted and sent one of two messages, either <span class="arithmatex">\(M_0\)</span> or <span class="arithmatex">\(M_1\)</span>, and Eve has no idea which was sent. Eve tries to guess which was sent by looking at the cipher text. If the encryption scheme is confidential, then Eve's probability of guessing which message was sent should be 1/2, which is the same probability if she had not intercepted the ciphertext at all, and was instead guessing at random. </p>
+<p>Our definition says that even if Eve can trick Alice into encrypting some messages, she still cannot distinguish whether Alice sent <span class="arithmatex">\(M_0\)</span> or <span class="arithmatex">\(M_1\)</span> in the experiment. This definition is known as indistinguishability under chosen plaintext attack, or IND-CPA. It works as follows:
+1. Eve chooses two different messages <span class="arithmatex">\(M_0\)</span>, and <span class="arithmatex">\(M_1\)</span>, and sends both messages to Alice
+2. Alice flips a fair coin. If the coin is heads, she encrypts <span class="arithmatex">\(M_0\)</span>. If the coin is tails, she encrypts <span class="arithmatex">\(M_1\)</span>. More formally, Alice will choose a bit <span class="arithmatex">\(b \in\{0, 1\}\)</span> uniformly at random, and then encrypts <span class="arithmatex">\(M_b\)</span>. Alice sends the encrypted message <span class="arithmatex">\(Enc(K, M_b)\)</span> back to Eve
+3. Eve is now allowed to ask Alice for encryptions of messages of Eve's choosing. Eve can send a plaintext message with the secret key. Eve is allowed to repeat this as many times as she wants. Intuitively, this steps is allowing Eve to perform a chosen-plaintext attack in an attempt to learn something about which message was sent
+4. After Eve is finished asking for encryptions, she must guess whether the encrypted message from step 2 is the encryption of <span class="arithmatex">\(M_0\)</span> or <span class="arithmatex">\(M_1\)</span>. </p>
+<p>If Eve can guess which message was sent with probability &gt; 1/2, she wins, and the scheme is not IND-CPA secure. </p>
+<p>Some restrictions:</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(M_0\)</span> and <span class="arithmatex">\(M_1\)</span> must be the same length. </p>
+</li>
+<li>
+<p>Eve is limited to a practical number of encryption requests. </p>
+</li>
+<li>
+<p>Eve only wins if she has a non-negligible advantage. </p>
+</li>
+</ul>
+<h2 id="xor-review">XOR Review<a class="headerlink" href="#xor-review" title="Permanent link">¶</a></h2>
+<p>Symmetric-key encryption often relies on the bitwise XOR operation. Some properties of the XOR operations:</p>
+<div class="arithmatex">\[
+\begin{align*}
+x\oplus 0 &amp;= x\\
+x\oplus x &amp;= 0\\
+x\oplus y &amp;= y\oplus x\\
+(x\oplus y) \oplus z &amp;= x\oplus (y\oplus z)\\
+x\oplus y\oplus x &amp;= y
+\end{align*}
+\]</div>
+<p>The last one is important to note. Given <span class="arithmatex">\(x\oplus y\)</span>, you can retrieve <span class="arithmatex">\(y\)</span> by XOR'ing with <span class="arithmatex">\(x\)</span>, cancelling out the <span class="arithmatex">\(x\)</span>. This allows us to perform algebra with XOR:</p>
+<div class="arithmatex">\[
+\begin{align*}
+y\oplus 1 &amp;= 0\\
+y\oplus 1\oplus 1 &amp;= 0\oplus 1\\
+y &amp;= 1
+\end{align*}
+\]</div>
+<h2 id="one-time-pad">One Time Pad<a class="headerlink" href="#one-time-pad" title="Permanent link">¶</a></h2>
+<p>One Time Pad is a symmetric encryption scheme. Alice and Bob share an <span class="arithmatex">\(n\)</span>-bit secret key <span class="arithmatex">\(K= k_1\cdots k_n\)</span>. The bits are picked uniformly at random. To send an <span class="arithmatex">\(n\)</span>-bit message <span class="arithmatex">\(M=m_1\cdots m_n\)</span>, we want the desired properties:
+1. It should scramble up the message, i.e., map it to a ciphertext <span class="arithmatex">\(C = c_1\cdots c_n\)</span>. 
+2. Given knowledge of the secret key <span class="arithmatex">\(K\)</span>, it should be easy to recover <span class="arithmatex">\(M\)</span> from <span class="arithmatex">\(C\)</span>. 
+3. Eve, who does not know <span class="arithmatex">\(K\)</span>, should get no information about <span class="arithmatex">\(M\)</span>. </p>
+<p>How to do it: for encryption</p>
+<div class="arithmatex">\[
+c_j = m_j \oplus k_j
+\]</div>
+<p>for decryption</p>
+<div class="arithmatex">\[
+\begin{align*}
+c_j &amp;= m_j \oplus k_j\\
+c_j\oplus k_j &amp;= m_j\oplus k_j\oplus k_j\\
+c_j\oplus k_j &amp;= m_j
+\end{align*}
+\]</div>
+<p>Maybe more summarizable:</p>
+<ol>
+<li>Alice and Bob pick a shared random key <span class="arithmatex">\(K\)</span>.</li>
+<li>Encryption: <span class="arithmatex">\(C = M\oplus K\)</span></li>
+<li>Decryption: <span class="arithmatex">\(M = C\oplus K\)</span></li>
+</ol>
+<h3 id="proof-that-one-time-pad-is-ind-cpa-secure">Proof that One-Time Pad is IND-CPA Secure<a class="headerlink" href="#proof-that-one-time-pad-is-ind-cpa-secure" title="Permanent link">¶</a></h3>
+<p>For a fixed choice of plaintext <span class="arithmatex">\(M\)</span>, every possible value of ciphertext <span class="arithmatex">\(C\)</span> can be achieved by an appropriate and unique choice of the shared key <span class="arithmatex">\(K\)</span>, namely <span class="arithmatex">\(K = M\oplus C\)</span>. Since each such key value is equally likely, it follows that <span class="arithmatex">\(C\)</span> is also equally likely to be any n-bit string. </p>
+<p>Eve thus sees a uniformly random <span class="arithmatex">\(n\)</span> bit string no matter what the plaintext message was, and thus gets no information about which of the two messages was encrypted. </p>
+<p>Suppose Eve observes a ciphertext <span class="arithmatex">\(C\)</span>, and knows the message <span class="arithmatex">\(M\)</span> is either <span class="arithmatex">\(M_0\)</span> or <span class="arithmatex">\(M_1\)</span>. The probability space here is <span class="arithmatex">\(2^{n+1}\)</span> since there are <span class="arithmatex">\(2^n\)</span> choices for the n-bit key <span class="arithmatex">\(K\)</span>, as well as the challenger's choice of whether to send <span class="arithmatex">\(M_0\)</span> or <span class="arithmatex">\(M_1\)</span>. All choices are equally likely. </p>
+<p>Assume key <span class="arithmatex">\(K\)</span> is generated uniformly at random; then the challenger randomly chooses a bit <span class="arithmatex">\(b\in\{0, 1\}\)</span>, and Alice sends the encryption of <span class="arithmatex">\(M_b\)</span>. So, if Eve observes that the cipher text has some specific value <span class="arithmatex">\(C\)</span>, what is the conditional probability that <span class="arithmatex">\(b = 0\)</span> given her observation?</p>
+<div class="arithmatex">\[
+\begin{align*}
+P(b=0|\text{ciphertext} = C) &amp;= \frac{P(b = 0 \land \text{ciphertext = C})}{P(\text{ciphertext} = C)}\\
+&amp;=\frac{P(b=0\land K = M_0\oplus C)}{P(\text{ciphertext} = C)}\\
+&amp; = \frac{(1/2)(1/2^n)}{1/2^n}\\
+&amp; = \frac{1}{2}
+\end{align*}
+\]</div>
+<p>Drawback of one time pad: Shared key cannot be reused to transmit another message <span class="arithmatex">\(M'\)</span>. </p>
+<ul>
+<li>
+<p>If <span class="arithmatex">\(K\)</span> is reused to encrypt two messages <span class="arithmatex">\(M\)</span> and <span class="arithmatex">\(M'\)</span>, then Eve can XOR the two ciphertexts <span class="arithmatex">\(C = M\oplus K\)</span> and <span class="arithmatex">\(C' = M'\oplus K\)</span> to obtain <span class="arithmatex">\(C\oplus C' = M\oplus M'\)</span>. </p>
+</li>
+<li>
+<p>If Eve happens to learn <span class="arithmatex">\(M\)</span>, then she can easily deduce the other message <span class="arithmatex">\(M'\)</span>. But she can also just reconstruct the key <span class="arithmatex">\(K\)</span> too. </p>
+</li>
+<li>
+<p>Even if Eve does not know <span class="arithmatex">\(M\)</span> or <span class="arithmatex">\(M'\)</span>, there is often enough redundancy in messages that merely knowing <span class="arithmatex">\(M\oplus M'\)</span> is enough to recover most of the messages. </p>
+</li>
+</ul>
+<p>In general, one-time pad is not secure if the key is used to encrypt more than one message. </p>
+<h2 id="block-ciphers">Block Ciphers<a class="headerlink" href="#block-ciphers" title="Permanent link">¶</a></h2>
+<p>Block cipher transforms a fixed-length <span class="arithmatex">\(n\)</span>-bit input into a fixed-length <span class="arithmatex">\(n\)</span>-bit output. The block cipher has <span class="arithmatex">\(2^k\)</span> different settings for scrambling, so it also takes in a <span class="arithmatex">\(k\)</span>-bit key as input, where each key corresponds to a different scrambling setting. </p>
+<p>Given a fixed key, the block cipher encryption must map each of the <span class="arithmatex">\(2^n\)</span> possible plaintext inputs to a different ciphertext output. The block cipher encryption must map uniquely, so that there is some inverse operation that decrypts it. This means block cipher is deterministic. </p>
+<p>Mathematically: There is an encryption function <span class="arithmatex">\(E : \{0, 1\}^k \times \{0, 1\} \rightarrow \{0, 1\}^n\)</span>. Once we fix a key <span class="arithmatex">\(K\)</span>, the function maps <span class="arithmatex">\(E_K: \{0, 1\}^n\rightarrow \{0, 1\}^n\)</span>, defined by <span class="arithmatex">\(E_K(M) = E(K, M)\)</span>. </p>
+<p>We require <span class="arithmatex">\(E_K\)</span> to be a permutation on the n-bit strings, so it is invertible (bijective). The inverse mapping of this permutation is the decryption algorithm <span class="arithmatex">\(D_K\)</span>. In other words, <span class="arithmatex">\(D_K(E_K(M)) = M\)</span>. </p>
+<h3 id="block-cipher-security">Block Cipher Security<a class="headerlink" href="#block-cipher-security" title="Permanent link">¶</a></h3>
+<p>Block ciphers are not IND-CPA secure on their own because they are deterministic. In other words, encrypting the same message twice with the same key produces the same output twice. Eve sends <span class="arithmatex">\(M_0\)</span> and <span class="arithmatex">\(M_1\)</span> to be encrypted, then queries the challenger for the encryption of <span class="arithmatex">\(M_0\)</span> and receives the same encryption. If the two encryptions she receives from the challenger are the same, then Eve knows the challenger encrypted <span class="arithmatex">\(M_0\)</span> and sent <span class="arithmatex">\(E(K, M_0\)</span>) otherwise they encrypted <span class="arithmatex">\(M_1\)</span>. </p>
+<p>Altough they are not IND-CPA secure, they have a desirable security property that helps us build IND-CPA secure symmetric encryption schemes: a block cipher is computationally indistinguishable from a random permutation. </p>
+<p>A random permutation is a function that maps each <span class="arithmatex">\(n\)</span>-bit input to exactly one <span class="arithmatex">\(n\)</span>-bit random output. </p>
+<p>AES is not truly indistinguishable from random, but is believed to be computationally indistinguishable from random. Intuitively, this means that given a practical amount of computation power, Eve cannot guess which type of permutation she received. </p>
+<p>This gives a strong security guarantee. given a single ciphertext <span class="arithmatex">\(C = E_K(M)\)</span>, an attacker without the key cannot learn anything about the original message <span class="arithmatex">\(M\)</span>. If the attacker could learn something about <span class="arithmatex">\(M\)</span>, then AES would no longer be computationally indistinguishable. There is no proof that AES is computationally indistinguishable from random, but it is believed to be computationally indistinguishable. </p>
+<h2 id="block-cipher-modes-of-operation">Block Cipher Modes of Operation<a class="headerlink" href="#block-cipher-modes-of-operation" title="Permanent link">¶</a></h2>
+<p>Why AES cannot be a practical IND-CPA secure encryption scheme:
+1. We would like to encrypt arbitrarily long messages, but the block cipher only takes fixed-length inputs
+2. If the same message is sent twice, the ciphertext in the two transmissions is the same with AES. </p>
+<p>To fix these problems, the encryption algorithm can be randomized or stateful. </p>
+<p>Several standard ways of building an encryption algorithm, using a block cipher</p>
+<h3 id="electronic-code-book-ecb-mode">Electronic Code Book (ECB) Mode<a class="headerlink" href="#electronic-code-book-ecb-mode" title="Permanent link">¶</a></h3>
+<p>The plaintext <span class="arithmatex">\(M\)</span> is simply broken into <span class="arithmatex">\(n\)</span>-bit blocks <span class="arithmatex">\(M_1\cdots M_l\)</span>, and each block is encoded using the block cipher <span class="arithmatex">\(C_i = E_K(M_i)\)</span>. The ciphertext is just a concatenation of these individual blocks: <span class="arithmatex">\(C = C_1\cdot C_2\cdots C_l\)</span>. </p>
+<p>This scheme is flawed. Any redundancy in the blocks will show through and allow the eavesdropper to deduce information about the plaintext. If, for instance <span class="arithmatex">\(M_i = M_j\)</span>, then <span class="arithmatex">\(C_i = C_j\)</span>. </p>
+<ul>
+<li>
+<p>ECB mode leaks information about the plaintext </p>
+</li>
+<li>
+<p>Encryption: C_i = E_K(M_i)</p>
+</li>
+<li>
+<p>Decryption: M_i = D_K(C_i)</p>
+</li>
+</ul>
+<h3 id="cipher-block-chaining-cbc-mode">Cipher Block Chaining (CBC) Mode<a class="headerlink" href="#cipher-block-chaining-cbc-mode" title="Permanent link">¶</a></h3>
+<p>For each message, the sender picks a random <span class="arithmatex">\(n\)</span>-bit string, called the initial vector (IV). Define <span class="arithmatex">\(C_0 = IV\)</span>. The <span class="arithmatex">\(i\)</span>th ciphertext block is given by <span class="arithmatex">\(C_i = E_K(C_{i-1}\oplus M_i)\)</span>. The ciphertext is the concatenation of the initial vector and these individual blocks <span class="arithmatex">\(C = IV\cdot C_1\cdot C_2\cdots C_l\)</span>. </p>
+<ul>
+<li>
+<p>CBC mode has been proven to provide strong security guarantees on the privacy of the plaintext message</p>
+</li>
+<li>
+<p>Encryption: <span class="arithmatex">\(C_0 = IV;\;\; C_i = E_K(P_i\oplus C_{i-1})\)</span> </p>
+</li>
+<li>
+<p>Decryption: <span class="arithmatex">\(P_i = D_K(C_i)\oplus C_{i-1}\)</span> </p>
+</li>
+</ul>
+<h3 id="ciphertext-feedback-cfb-mode">Ciphertext Feedback (CFB) Mode<a class="headerlink" href="#ciphertext-feedback-cfb-mode" title="Permanent link">¶</a></h3>
+<p><span class="arithmatex">\(C_0\)</span> is again the IV. The <span class="arithmatex">\(i\)</span>th ciphertext block is now given by <span class="arithmatex">\(C_i = E_K(C_{i-1})\oplus M_i\)</span>. </p>
+<ul>
+<li>
+<p>Encryption: <span class="arithmatex">\(C_0 = IV;\;\;\; C_i = E_K(C_{i-1})\oplus P_i\)</span></p>
+</li>
+<li>
+<p>Decryption: <span class="arithmatex">\(P_i = E_K(C_{i-1})\oplus C_i\)</span></p>
+</li>
+</ul>
+<h3 id="output-feedback-ofb-mode">Output Feedback (OFB) Mode<a class="headerlink" href="#output-feedback-ofb-mode" title="Permanent link">¶</a></h3>
+<p>The initial vector is repeatedly encrypted to obtain a set of values <span class="arithmatex">\(Z_i\)</span> as follows: <span class="arithmatex">\(Z_0 = IV\)</span> and <span class="arithmatex">\(Z_i = E_K(Z_{i-1})\)</span>. These values <span class="arithmatex">\(Z_i\)</span> are now used as though they were the key for a one-tie pad, so that <span class="arithmatex">\(C_i = Z_i\oplus M_i\)</span>. The ciphertext is the concatenation of the IV and these individual blocks: <span class="arithmatex">\(C = IV\cdot C_1\cdot C_2\cdots C_l\)</span>. </p>
+<p>In OFB, it is easy to tampe with ciphertexts. Suppose that the adversary happens to know that the <span class="arithmatex">\(j\)</span>th block of the message <span class="arithmatex">\(M_j\)</span>, specifies the amount of money being transferred to his account from the bank, and suppose he knows that <span class="arithmatex">\(M_j = 100\)</span>. Since he knows both <span class="arithmatex">\(M_j\)</span> and <span class="arithmatex">\(C_j\)</span>, he can determine <span class="arithmatex">\(Z_j\)</span>. He can then substitute any <span class="arithmatex">\(n\)</span>-bit block in place of <span class="arithmatex">\(M_j\)</span> and get a new ciphertext <span class="arithmatex">\(C'_j\)</span> where 100 is replaced by any amount of his choice.</p>
+<ul>
+<li>
+<p>Encryption: <span class="arithmatex">\(Z*0 = IV;\;\;\; Z_i = E_K(Z*i-1);\;\;\; C_i = M_i\oplus Z_i\)</span></p>
+</li>
+<li>
+<p>Decyption: <span class="arithmatex">\(P_i = C_i\oplus Z_i\)</span></p>
+</li>
+</ul>
+<h3 id="counter-ctr-mode">Counter (CTR) Mode<a class="headerlink" href="#counter-ctr-mode" title="Permanent link">¶</a></h3>
+<p>A counter is initialized to IV and repeatedly incremented and encrypted to obtain a sequence that can now be used as though they were they keys for a one-time pad, namely <span class="arithmatex">\(Z_i = E_K(IV + i)\)</span> and <span class="arithmatex">\(C_i = Z_i\oplus M_i\)</span>. In CTR, the IV is renamed the nonce. </p>
+<ul>
+<li>
+<p>Encryption: <span class="arithmatex">\(C_i = E_K(IV + i) \oplus M_i\)</span></p>
+</li>
+<li>
+<p>Decryption: <span class="arithmatex">\(M_i = E_K(IV + i) \oplus C_i\)</span></p>
+</li>
+</ul>
+<h2 id="parallelization">Parallelization<a class="headerlink" href="#parallelization" title="Permanent link">¶</a></h2>
+<p>Some modes require successive blocks to be encrypted or decrypted sequentially, but some of them can be parallelized:</p>
+<ul>
+<li>
+<p>CBC encryption cannot be parallized since it depends on <span class="arithmatex">\(C_{i-1}\)</span>. </p>
+</li>
+<li>
+<p>CBC decryption can be parallelized. Since we already have all the ciphertext blocks</p>
+</li>
+<li>
+<p>CTR encryption and decryption can both be parallelized. </p>
+</li>
+</ul>
+<h2 id="padding">Padding<a class="headerlink" href="#padding" title="Permanent link">¶</a></h2>
+<p>Recall that block ciphers let us encrypt messages that are longer than one block long. What happens if we want to send a message that is not a multiple of the block size? It will depends on which mode is being used. Let's assume the block size is 128 bits (16 characters). </p>
+<p>CBC: if the plaintext isn't a multiple of 128 bits, then the last block of plaintext will be slightly shorter than 128 bits. The XOR would be undefined-bitwise XOR. The solution is to pad the plaintext until it is a multiple of 128 bits. But that means we have to remove the padding in decryption. </p>
+<ul>
+<li>PKCS#7 padding pads the message by the number of padding bytes used. This allows the decryption to understand how much bytes to remove. </li>
+</ul>
+<p>Not all modes need to be padded. CTR doesn't because the result of XOR never has to be passed into a block cipher again at the end, so the 100 bits left is fine. </p>
+<h2 id="reusing-ivs-is-insecure">Reusing IVs is Insecure<a class="headerlink" href="#reusing-ivs-is-insecure" title="Permanent link">¶</a></h2>
+<p>Recall ECB is not IND-CPA because it is deterministic. Encrypting the same plaintext twice produces the same output, and this causes information leakage. All other modes introduce a random initialization vector IV that is different on every encryption in order to ensure that encrypting the same plaintext twice with the same key results in different output. </p>
+<p>However, reusing IV in CTR is equivalent to reusing the one-time pad. </p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: 5. Introduction to Cryptography" class="md-footer__link md-footer__link--prev" href="../5.%20Introduction%20to%20Cryptography/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              5. Introduction to Cryptography
+            </div>
+</div>
+</a>
+<a aria-label="Next: 7. Cryptographic Hashes" class="md-footer__link md-footer__link--next" href="../7.%20Cryptographic%20Hashes/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              7. Cryptographic Hashes
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../../../../assets/javascripts/bundle.37e9125f.min.js"></script>
+<script src="../../../../javascripts/mathjax.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</body>
+</html>

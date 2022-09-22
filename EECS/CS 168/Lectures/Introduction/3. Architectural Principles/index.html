@@ -1,0 +1,1730 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../../../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.3.1, mkdocs-material-8.5.3" name="generator"/>
+<title>3. Architectural Principles - madharmawan</title>
+<link href="../../../../../assets/stylesheets/main.7a952b86.min.css" rel="stylesheet"/>
+<link href="../../../../../assets/stylesheets/palette.cbb835fc.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="indigo" data-md-color-primary="green" data-md-color-scheme="default" dir="ltr">
+<script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#3-architectural-principles">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="madharmawan" class="md-header__button md-logo" data-md-component="logo" href="../../../../.." title="madharmawan">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            madharmawan
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              3. Architectural Principles
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="indigo" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="green" data-md-color-scheme="default" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_2" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="green" data-md-color-scheme="slate" id="__palette_2" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"></path></svg>
+</label>
+</form>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="madharmawan" class="md-nav__button md-logo" data-md-component="logo" href="../../../../.." title="madharmawan">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"></path></svg>
+</a>
+    madharmawan
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../..">
+        Welcome
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../mastertoc/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3">
+          EECS
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="EECS" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+          EECS
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../toc%20EECS/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" id="__nav_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2">
+          CS 161
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 161" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_2">
+<span class="md-nav__icon md-icon"></span>
+          CS 161
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/toc%20CS161/">
+        Table of Contents CS 161
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" id="__nav_3_2_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_2">
+          Cryptography
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Cryptography" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_2">
+<span class="md-nav__icon md-icon"></span>
+          Cryptography
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Cryptography/5.%20Introduction%20to%20Cryptography/">
+        5. Introduction to Cryptography
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Cryptography/6.%20Symmetric-Key%20Encryption/">
+        6. Symmetric-Key Encryption
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Cryptography/7.%20Cryptographic%20Hashes/">
+        7. Cryptographic Hashes
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_3" id="__nav_3_2_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_3">
+          Memory Safety
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Memory Safety" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_3">
+<span class="md-nav__icon md-icon"></span>
+          Memory Safety
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Memory%20Safety/2.%20x86%20Assembly%20and%20Call%20Stack/">
+        2. x86 Assembly and Call Stack
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Memory%20Safety/3.%20Memory%20Safety%20Vulnerabilities/">
+        3. Memory Safety Vulnerabilities
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Memory%20Safety/4.%20Mitigating%20Memory-Safety%20Vulnerabilities/">
+        4. Mitigating Memory-Safety Vulnerabilities
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_4" id="__nav_3_2_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_2_4">
+          Security Principles
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Security Principles" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_2_4">
+<span class="md-nav__icon md-icon"></span>
+          Security Principles
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%20161/Security%20Principles/1.%20Security%20Principles/">
+        1. Security Principles
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" id="__nav_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3">
+          CS 168
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 168" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_3">
+<span class="md-nav__icon md-icon"></span>
+          CS 168
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../toc%20CS168/">
+        Table of Contents CS 168
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_2" id="__nav_3_3_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_2">
+          0. Introduction to CS 168
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="0. Introduction to CS 168" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_2">
+<span class="md-nav__icon md-icon"></span>
+          0. Introduction to CS 168
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../0.%20Introduction%20to%20CS%20168/0.%20Introduction%20to%20CS%20168/">
+        0. Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_3" id="__nav_3_3_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_3">
+          1. Overview of Computer Networks and the Internet
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1. Overview of Computer Networks and the Internet" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_3">
+<span class="md-nav__icon md-icon"></span>
+          1. Overview of Computer Networks and the Internet
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../1.%20Overview%20of%20Computer%20Networks%20and%20the%20Internet/1.%20Computer%20Networks%20and%20the%20Internet/">
+        1. Computer Networks and the Internet
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_4" id="__nav_3_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_4">
+          2. Application Layer
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="2. Application Layer" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_4">
+<span class="md-nav__icon md-icon"></span>
+          2. Application Layer
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.%20Application%20Layer/">
+        2. Application Layer
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.0%20Key%20Terms/">
+        2.0 Key Terms
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.1%20Principles%20of%20Network%20Applications/">
+        2.1 Principles of Network Appications
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.2%20The%20Web%20and%20HTTP/">
+        2.2 The Web and HTTP
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.3%20Electronic%20Mail%20in%20the%20Internet/">
+        2.3 Electronic Mail in the Internet
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.4%20DNS%20-%20The%20Internet%27s%20Directory%20Service/">
+        2.4 DNS - The Internet's Directory Service
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../2.%20Application%20Layer/2.5%20Peer-to-Peer%20File%20Distribution/">
+        2.5 Peer-to-Peer File Distribution
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_5" id="__nav_3_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_5">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Lectures" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_3_5">
+<span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_5_1" id="__nav_3_3_5_1" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_5_1">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Introduction" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_3_3_5_1">
+<span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../2.%20How%20the%20Internet%20Works%20-%20A%20Bottom-Up%20View/">
+        2. How the Internet Works - A Bottom-Up View
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+          3. Architectural Principles
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+        3. Architectural Principles
+      </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recall">
+    Recall
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#circuit-vs-packet-switching-which-is-better">
+    Circuit vs. Packet Switching: Which is Better?
+  </a>
+<nav aria-label="Circuit vs. Packet Switching: Which is Better?" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#from-an-application-viewpoint">
+    From an Application Viewpoint
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#which-makes-more-efficient-use-of-network-capacity">
+    Which Makes More Efficient Use of Network Capacity?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#handling-failures">
+    Handling Failures
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complexity-of-implementation">
+    Complexity of Implementation
+  </a>
+<nav aria-label="Complexity of Implementation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recap-circuit-vs-packet-switching">
+    Recap: Circuit vs. Packet Switching
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-does-the-internet-use-today">
+    What does the Internet Use Today?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#circuit-vs-packet-switching-a-bit-of-history">
+    Circuit vs. Packet Switching: A Bit of History
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#more-about-packet-switching">
+    More About Packet Switching
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../4.%20Designing%20the%20Internet/">
+        4. Designing the Internet
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3_5_2" id="__nav_3_3_5_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_3_5_2">
+          Routing
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Routing" class="md-nav" data-md-level="4">
+<label class="md-nav__title" for="__nav_3_3_5_2">
+<span class="md-nav__icon md-icon"></span>
+          Routing
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Routing/5.%20Routing%20Fundamentals/">
+        5. Routing Fundamentals
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Routing/6.%20Routing%20Approaches%20I/">
+        6. Routing Approaches I
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../Routing/7.%20Routing%20Approaches%20II/">
+        7. Routing Approaches II
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" id="__nav_3_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_4">
+          CS 61A
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 61A" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_4">
+<span class="md-nav__icon md-icon"></span>
+          CS 61A
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/0.%20Introduction%20to%20CS%2061A/">
+        0. Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/1.%20Python%20Interpreter/">
+        1. Python Interpreter
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/1.1%20Expressions%20in%20the%20Terminal/">
+        1.1 Expressions in the Terminal
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/1.2%20Evaluation%20Procedure/">
+        1.2 Evaluation Procedure
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/2.%20Expressions%2C%20Variables%2C%20and%20Functions/">
+        2. Expressions, Variables, and Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/2.1%20Expressions%20and%20Variables/">
+        2.1 Expressions and Variables
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/2.2%20Defining%20and%20Using%20Functions/">
+        2.2 Defining and Using Functions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/3.%20Control/">
+        3. Control
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/3.1%20If%2C%20Elif%2C%20Else%20Clauses/">
+        3.1 If, Elif, Else Clauses
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/4.%20Higher-Order%20Functions%20I/">
+        4. Higher Order Functions I
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/4.1%20Functions%20as%20Parameters%2C%20Functions%20as%20Returns/">
+        4.1 Functions as Parameters, Functions as Returns
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061A/toc%20CS61A/">
+        Table of Contents
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" id="__nav_3_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_5">
+          CS 61B
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 61B" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_5">
+<span class="md-nav__icon md-icon"></span>
+          CS 61B
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061B/toc%20CS61B/">
+        Table of Contents
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" id="__nav_3_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6">
+          CS 61C
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="CS 61C" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_6">
+<span class="md-nav__icon md-icon"></span>
+          CS 61C
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/toc%20CS61C/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_2" id="__nav_3_6_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_2">
+          0. Introduction to CS 61C
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="0. Introduction to CS 61C" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_2">
+<span class="md-nav__icon md-icon"></span>
+          0. Introduction to CS 61C
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/0.%20Introduction%20to%20CS%2061C/0.%20Introduction%20to%20CS%2061C/">
+        0. Introduction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_3" id="__nav_3_6_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_3">
+          1. Number Representation
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1. Number Representation" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_3">
+<span class="md-nav__icon md-icon"></span>
+          1. Number Representation
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/1.%20Number%20Representation/1.%20Number%20Representation/">
+        1. Number Representation
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/1.%20Number%20Representation/1.1%20Decmial%2C%20Binary%2C%20and%20Hexadecimal%20Number%20Systems/">
+        1.1 Decimal, Binary, and Hexadecmial Number Systems
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/1.%20Number%20Representation/1.2%20Signed%20Representations/">
+        1.2 Signed Representations
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/1.%20Number%20Representation/1.3%20Floating%20Point%20Representation/">
+        1.3 Floating Point Representation
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_4" id="__nav_3_6_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_4">
+          10. Synchronous Digital Systems (SDS)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="10. Synchronous Digital Systems (SDS)" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_4">
+<span class="md-nav__icon md-icon"></span>
+          10. Synchronous Digital Systems (SDS)
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/10.%20Synchronous%20Digital%20Systems%20%28SDS%29/10.%20Synchonous%20Digital%20Systems%20%28SDS%29/">
+        10. Synchonous Digital Systems (SDS)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_5" id="__nav_3_6_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_5">
+          11. Finite State Machines (FSMs)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="11. Finite State Machines (FSMs)" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_5">
+<span class="md-nav__icon md-icon"></span>
+          11. Finite State Machines (FSMs)
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/11.%20Finite%20State%20Machines%20%28FSMs%29/11.%20Finite%20State%20Machines/">
+        11. Finite State Machines
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_6" id="__nav_3_6_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_6">
+          12. RISC V Datapath and Control Logic
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="12. RISC V Datapath and Control Logic" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_6">
+<span class="md-nav__icon md-icon"></span>
+          12. RISC V Datapath and Control Logic
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/12.%20RISC-V%20Datapath%20and%20Control%20Logic/12.%20RISC-V%20Datapath%20and%20Control%20Logic/">
+        12. RISC V Datapath and Control Logic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_7" id="__nav_3_6_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_7">
+          13. Datapath Performance and Pipelining
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="13. Datapath Performance and Pipelining" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_7">
+<span class="md-nav__icon md-icon"></span>
+          13. Datapath Performance and Pipelining
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/13.%20Datapath%20Performance%20and%20Pipelining/13.%20Datapath%20Performance%20and%20Pipelining/">
+        13. Datapath Performance and Pipelining
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_8" id="__nav_3_6_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_8">
+          14. Operating Systems
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="14. Operating Systems" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_8">
+<span class="md-nav__icon md-icon"></span>
+          14. Operating Systems
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/14.%20Operating%20Systems/14.%20Operating%20Systems%20%28OS%29/">
+        14. Operating Systems (OS)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_9" id="__nav_3_6_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_9">
+          15. Data and Thread Level Parallelism
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="15. Data and Thread Level Parallelism" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_9">
+<span class="md-nav__icon md-icon"></span>
+          15. Data and Thread Level Parallelism
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/15.%20Data%20and%20Thread%20Level%20Parallelism/15.%20Data%20and%20Thread%20Level%20Parallelism/">
+        15. Data and Thread Level Parallelism
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_10" id="__nav_3_6_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_10">
+          16. Caches
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="16. Caches" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_10">
+<span class="md-nav__icon md-icon"></span>
+          16. Caches
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/16.%20Caches/16.%20Caches/">
+        16. Caches
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_11" id="__nav_3_6_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_11">
+          17. Cache Coherency
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="17. Cache Coherency" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_11">
+<span class="md-nav__icon md-icon"></span>
+          17. Cache Coherency
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/17.%20Cache%20Coherency/17.%20Cache%20Coherency/">
+        17. Cache Coherency
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_12" id="__nav_3_6_12" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_12">
+          18. Virtual Memory
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="18. Virtual Memory" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_12">
+<span class="md-nav__icon md-icon"></span>
+          18. Virtual Memory
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/18.%20Virtual%20Memory/18.%20Virtual%20Memory/">
+        18. Virtual Memory
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_13" id="__nav_3_6_13" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_13">
+          19. Dependability
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="19. Dependability" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_13">
+<span class="md-nav__icon md-icon"></span>
+          19. Dependability
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/19.%20Dependability/19.%20Dependability/">
+        19. Dependability
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_14" id="__nav_3_6_14" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_14">
+          2. C Programming
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="2. C Programming" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_14">
+<span class="md-nav__icon md-icon"></span>
+          2. C Programming
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/2.%20C%20Programming/2.%20C%20Programming/">
+        2. C Programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/2.%20C%20Programming/2.1%20C%20Similarity%20to%20Java%20Syntax/">
+        2.1 C Similarity to Java Syntax
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/2.%20C%20Programming/2.2%20Memory%20Allocation/">
+        2.2 Memory Allocation
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/2.%20C%20Programming/2.3%20Pointers%20and%20Arrays/">
+        2.4 Pointers and Arrays
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/2.%20C%20Programming/2.4%20Stack%2C%20Heap%2C%20Static%2C%20Code/">
+        2.2 Stack, Heap, Static, Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_15" id="__nav_3_6_15" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_15">
+          3. Memory
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="3. Memory" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_15">
+<span class="md-nav__icon md-icon"></span>
+          3. Memory
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/3.%20Memory/3.%20Memory/">
+        3. Memory
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/3.%20Memory/3.1%20Sizes%20of%20Types%2C%20Casting/">
+        3.1 Sizes of Types, Casting
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/3.%20Memory/3.2%20Memory%20Alignment/">
+        3.2 Memory Alignment
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/3.%20Memory/3.3%20Endianness/">
+        3.3 Endianness
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_16" id="__nav_3_6_16" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_16">
+          4. More C Programming
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="4. More C Programming" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_16">
+<span class="md-nav__icon md-icon"></span>
+          4. More C Programming
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/4.%20More%20C%20Programming/4.%20More%20C%20Programming/">
+        4. More C Programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/4.%20More%20C%20Programming/4.1%20Higher-Order%20Functions%20in%20C/">
+        4.1 Higher Order Functions in C
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/4.%20More%20C%20Programming/4.2%20Structs%20and%20Unions/">
+        4.2 Structs and Unions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/4.%20More%20C%20Programming/4.3%20Defines/">
+        4.3 Defines
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/4.%20More%20C%20Programming/4.4%20Programming%20in%20C/">
+        4.4 Programming in C
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_17" id="__nav_3_6_17" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_17">
+          5. RISC V Programming
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5. RISC V Programming" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_17">
+<span class="md-nav__icon md-icon"></span>
+          5. RISC V Programming
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/5.%20RISC-V%20Programming/5.%20RISC-V%20Programming/">
+        5. RISC-V Programming
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/5.%20RISC-V%20Programming/5.1%20RISC-V%20Registers/">
+        5.1 RISC V Registers
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/5.%20RISC-V%20Programming/5.2%20Arithmetic%20and%20Bitwise%20Operators/">
+        5.2 Arithmetic and Bitwise Operators
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/5.%20RISC-V%20Programming/5.3%20Branching/">
+        5.3 Branching
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/5.%20RISC-V%20Programming/5.4%20Loads%20and%20Stores/">
+        5.4 Loads and Stores
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/5.%20RISC-V%20Programming/5.5%20Other%20RISC-V%20Instructions/">
+        5.5 Other RISC V Instructions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_18" id="__nav_3_6_18" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_18">
+          6. RISC V Calling Convention
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="6. RISC V Calling Convention" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_18">
+<span class="md-nav__icon md-icon"></span>
+          6. RISC V Calling Convention
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.%20RISC-V%20Calling%20Convention/">
+        6. RISC-V Calling Convention
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.1%20RISC-V%20Register%20Names/">
+        6.1 RISC V Register Names
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.2%20The%20Stack%20Pointer%2C%20Callee%2C%20Caller%20Conventions/">
+        6.2 The Stack Pointer, Callee, Caller Conventions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.3%20An%20Example%20RISC-V%20Code%20with%20Calling%20Convention/">
+        6.3 An Example RISC V Code with Calling Convention
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/6.%20RISC-V%20Calling%20Convention/6.4%20Recursive%20Functions%20in%20RISC-V/">
+        6.4 Recursive Functions in RISC V
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_19" id="__nav_3_6_19" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_19">
+          7. RISC V Instruction Formats
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="7. RISC V Instruction Formats" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_19">
+<span class="md-nav__icon md-icon"></span>
+          7. RISC V Instruction Formats
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/7.%20RISC-V%20Instruction%20Formats/7.%20RISC-V%20Instruction%20Formats/">
+        7. RISC-V Instruction Formats
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/7.%20RISC-V%20Instruction%20Formats/7.5%20Self-Modifying%20Code/">
+        7.5 Self-Modifying Code
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_20" id="__nav_3_6_20" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_20">
+          8. Compiler, Assembler, Linker, Loader (CALL)
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="8. Compiler, Assembler, Linker, Loader (CALL)" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_20">
+<span class="md-nav__icon md-icon"></span>
+          8. Compiler, Assembler, Linker, Loader (CALL)
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/8.%20Compiler%2C%20Assembler%2C%20Linker%2C%20Loader%20%28CALL%29/8.%20Compiler%2C%20Assembler%2C%20Linker%2C%20Loader%20%28CALL%29/">
+        8. Compiler, Assembler, Linker, Loader (CALL)
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6_21" id="__nav_3_6_21" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_6_21">
+          9. Combinatorial Logic, Boolean Algebra
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="9. Combinatorial Logic, Boolean Algebra" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_6_21">
+<span class="md-nav__icon md-icon"></span>
+          9. Combinatorial Logic, Boolean Algebra
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../CS%2061C/9.%20Combinatorial%20Logic%2C%20Boolean%20Algebra/9.%20Combinatorial%20Logic%2C%20Boolean%20Algebra/">
+        9. Combinatorial Logic, Boolean Algebra
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7" id="__nav_3_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7">
+          EECS 151
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="EECS 151" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_7">
+<span class="md-nav__icon md-icon"></span>
+          EECS 151
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/toc%20EECS151/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_2" id="__nav_3_7_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_2">
+          1. Introduction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1. Introduction" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_2">
+<span class="md-nav__icon md-icon"></span>
+          1. Introduction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/1.%20Introduction/1.%20Introduction%20to%20EECS%20151/">
+        1. Introduction to EECS 151
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_3" id="__nav_3_7_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_3">
+          2. Design Abstraction
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="2. Design Abstraction" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_3">
+<span class="md-nav__icon md-icon"></span>
+          2. Design Abstraction
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/2.%20Design%20Abstraction/2.%20Design%20Abstraction/">
+        2. Design Abstraction
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_4" id="__nav_3_7_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_4">
+          3. Metrics and Verilog
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="3. Metrics and Verilog" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_4">
+<span class="md-nav__icon md-icon"></span>
+          3. Metrics and Verilog
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/3.%20Metrics%20and%20Verilog/3.%20Metrics%20and%20Verilog/">
+        3. Metrics and Verilog
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_5" id="__nav_3_7_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_5">
+          4. Verilog II
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="4. Verilog II" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_5">
+<span class="md-nav__icon md-icon"></span>
+          4. Verilog II
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/4.%20Verilog%20II/4.%20Verilog%20II/">
+        4. Verilog II
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_6" id="__nav_3_7_6" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_6">
+          5. Combinational Logic I
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5. Combinational Logic I" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_6">
+<span class="md-nav__icon md-icon"></span>
+          5. Combinational Logic I
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/5.%20Combinational%20Logic%20I/5.%20Combinational%20Logic%20I/">
+        5. Combinational Logic
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_7" id="__nav_3_7_7" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_7">
+          6. Combinational Logic II
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="6. Combinational Logic II" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_7">
+<span class="md-nav__icon md-icon"></span>
+          6. Combinational Logic II
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/6.%20Combinational%20Logic%20II/6.%20Combinational%20Logic%20II/">
+        6. Combinational Logic II and FSM I
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_8" id="__nav_3_7_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_8">
+          7. Finite State Machines
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="7. Finite State Machines" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_8">
+<span class="md-nav__icon md-icon"></span>
+          7. Finite State Machines
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/7.%20Finite%20State%20Machines/7.%20Finite%20State%20Machines/">
+        7. Finite State Machines
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_9" id="__nav_3_7_9" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_9">
+          8. RISC V Datapath I
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="8. RISC V Datapath I" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_9">
+<span class="md-nav__icon md-icon"></span>
+          8. RISC V Datapath I
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/8.%20RISC-V%20Datapath%20I/8.%20RISC-V%20Datapath%20I/">
+        9. RISC-V Datapath I
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_10" id="__nav_3_7_10" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_10">
+          9. RISC V Datapath II
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="9. RISC V Datapath II" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_10">
+<span class="md-nav__icon md-icon"></span>
+          9. RISC V Datapath II
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/9.%20RISC-V%20Datapath%20II/9.%20RISC-V%20Datapath%20II/">
+        9. RISC-V Datapath II
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7_11" id="__nav_3_7_11" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_7_11">
+          A. .Verilog
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="A. .Verilog" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="__nav_3_7_11">
+<span class="md-nav__icon md-icon"></span>
+          A. .Verilog
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%20151/A.%20.Verilog/A.%20Verilog/">
+        A. Verilog
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8" id="__nav_3_8" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3_8">
+          EECS 16A
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="EECS 16A" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_3_8">
+<span class="md-nav__icon md-icon"></span>
+          EECS 16A
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%2016A/0.%20Introduction%20to%20EECS%2016A/">
+        0. Introduction
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../EECS%2016A/toc%20EECS%2016A/">
+        Table of Contents
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4">
+          Physics
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Physics" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+          Physics
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Physics/toc%20Physics/">
+        Table of Contents
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" id="__nav_4_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4_2">
+          Physics 137A
+          <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Physics 137A" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="__nav_4_2">
+<span class="md-nav__icon md-icon"></span>
+          Physics 137A
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Physics/Physics%20137A/1.%20Blackbody%20Radiation/">
+        1. Origins of Quantum Theory; UV Catastrophe
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Physics/Physics%20137A/2.%20Bohr%20Model/">
+        2. Bohr Model
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Physics/Physics%20137A/3.%20Wavefunctions/">
+        3. Wavefunctions
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Physics/Physics%20137A/4.%20Fourier%20Stuff/">
+        4. Fourier Stuff
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../../../Physics/Physics%20137A/toc%20Physics%20137A/">
+        Table of Contents Physics 137A
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recall">
+    Recall
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#circuit-vs-packet-switching-which-is-better">
+    Circuit vs. Packet Switching: Which is Better?
+  </a>
+<nav aria-label="Circuit vs. Packet Switching: Which is Better?" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#from-an-application-viewpoint">
+    From an Application Viewpoint
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#which-makes-more-efficient-use-of-network-capacity">
+    Which Makes More Efficient Use of Network Capacity?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#handling-failures">
+    Handling Failures
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#complexity-of-implementation">
+    Complexity of Implementation
+  </a>
+<nav aria-label="Complexity of Implementation" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recap-circuit-vs-packet-switching">
+    Recap: Circuit vs. Packet Switching
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#what-does-the-internet-use-today">
+    What does the Internet Use Today?
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#circuit-vs-packet-switching-a-bit-of-history">
+    Circuit vs. Packet Switching: A Bit of History
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#more-about-packet-switching">
+    More About Packet Switching
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<h1 id="3-architectural-principles">3. Architectural Principles<a class="headerlink" href="#3-architectural-principles" title="Permanent link">¶</a></h1>
+<h2 id="recall">Recall<a class="headerlink" href="#recall" title="Permanent link">¶</a></h2>
+<p>Two canonical approaches to sharing
+1. Reservations: end-hosts explicitly reserve BW when needed (e.g., aat the start of a flow)
+2. Best-effort: just send data packets when you have them and hope for the best</p>
+<p>Two canonical designs to implementing these approaches:
+1. Reservations via circuit switching
+2. Best-effort via packet switching</p>
+<p>Circuit switching: idea is to reserve network capacity for all packets in a flow. Make sure you can send a packet through and establish a circuit</p>
+<p><img alt="3.1 circuitswitch.png" src="../3.1%20circuitswitch.png"/></p>
+<p>When it is done, then the circuit will teardown the reservations.</p>
+<p>Packet switching: allocate resources to each packet independently</p>
+<h2 id="circuit-vs-packet-switching-which-is-better">Circuit vs. Packet Switching: Which is Better?<a class="headerlink" href="#circuit-vs-packet-switching-which-is-better" title="Permanent link">¶</a></h2>
+<p>What are the dimensions along which we should compare?</p>
+<ul>
+<li>
+<p>As an abstraction to applications: it is useful for the application we are making?</p>
+</li>
+<li>
+<p>Efficiency (at scale): how well are you using network resrouces? Bandwidth is expensive...</p>
+</li>
+<li>
+<p>Handling failures (at scale): the system needs to be resilient to any failures</p>
+</li>
+<li>
+<p>Complexity of implementation (at scale): complicated usages are not really good</p>
+</li>
+</ul>
+<h3 id="from-an-application-viewpoint">From an Application Viewpoint<a class="headerlink" href="#from-an-application-viewpoint" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p>Circuits offer better application performance (reserved bandwidth)</p>
+</li>
+<li>
+<p>More predictable and understandable behavior (w/o failures)</p>
+</li>
+<li>
+<p>Also very intuitive abstraction in support of business models!</p>
+</li>
+</ul>
+<h3 id="which-makes-more-efficient-use-of-network-capacity">Which Makes More Efficient Use of Network Capacity?<a class="headerlink" href="#which-makes-more-efficient-use-of-network-capacity" title="Permanent link">¶</a></h3>
+<p>Packet switching is typically more efficient, but it much better depends on the "burstiness" of the traffic sources. This is because packet switching implements statistical multiplexing at a finer granularity than circuit switching (packets vs. flows)</p>
+<ul>
+<li>
+<p>Ex: 3 constant rate sources sharing a link. Total link bandwidth is 30 Mbps, and the demands are that each source needs a constant rate of 10Mbps. Circuit and packet switching give approximately the same result. Every source gets what they need, no wasted bandwidth, etc.</p>
+</li>
+<li>
+<p>Ex: Three bursty sources. For a reservation system:</p>
+</li>
+</ul>
+<p><img alt="3.2 burstyreservation.png" src="../3.2%20burstyreservation.png"/></p>
+<p>and with best effort: </p>
+<p><img alt="3.3 burstybesteffort.png" src="../3.3%20burstybesteffort.png"/></p>
+<p>Smooth vs. Bursty Applications:</p>
+<ul>
+<li>
+<p>Characterized by the ratio between an app's peak to average transmission rate</p>
+</li>
+<li>
+<p>Some apps have relatively small peak-to-average ratios. Voice might have a ratio of 3:1 or so</p>
+</li>
+<li>
+<p>Data applications tend to be rather bursty: E.g. ratios of 100 r greater are common when web browsing</p>
+</li>
+<li>
+<p>That is why the phone network used reservations and the Internet does not!</p>
+</li>
+</ul>
+<p>Other differences in efficiency:</p>
+<ul>
+<li>Circuit switching spends some time to setup/teardown circuits. Very inefficient when you don't have much data to send (short flows)</li>
+</ul>
+<h3 id="handling-failures">Handling Failures<a class="headerlink" href="#handling-failures" title="Permanent link">¶</a></h3>
+<p>For packet switching: If there is a failure, just send to another switch. The end host doesn't even need to know there was a failure. This is because decisions are made independent of each other.
+1. Link goes down, then what?
+2. Network must detect failure
+3. Network recalculates routes: job of routing control plane
+4. Endhosts and individual flows do nothing special: expect cop with the temporary loss of service</p>
+<p>For circuit switching: if there is a failure, the network needs to recompute a new path. The endhost needs to send another reservation. The new reservation might not be able to accomodate the resources. We need to teardown, and then send a new reservation. It might not even work if they don't have the resources
+1. Network must do all the things needed for packet switching
+2. In addition, endhosts must detect failure, teardown old reservations, send a new reservation request
+3. All impacted endhosts must do this, for each impacted flow
+4. If milllions of flows were going through a switch, then millions of reservation requests are being simultaneously re-established</p>
+<h2 id="complexity-of-implementation">Complexity of Implementation<a class="headerlink" href="#complexity-of-implementation" title="Permanent link">¶</a></h2>
+<p>Recall reservations
+1. Source sends a reservation request to destination
+2. Every switch must say yes to establish a reservation. How do you know that the reservation went through? Extend the design so the switches know the reservation got through. 
+3. What happens if the reservation request is lost midway? Let's extend the implementation and create a timer that will know if the timer ran out of time, the reservation request was dropped.
+4. What happens if the confirmation that the reservation made it is lost? Extend the design
+5. What should the endhost do if the reservation is declined. Extend the design...
+6. What happens if the underlying route changes? Extend the design...</p>
+<p>It's hard. Dependencies on consistency. But the states are highly dynamic but agree with each other.</p>
+<h3 id="recap-circuit-vs-packet-switching">Recap: Circuit vs. Packet Switching<a class="headerlink" href="#recap-circuit-vs-packet-switching" title="Permanent link">¶</a></h3>
+<p>Pros for circuit switching:</p>
+<ul>
+<li>
+<p>Better applicaiton performance (reserved bandwidth)</p>
+</li>
+<li>
+<p>More predictable and understandable (w/o failures)</p>
+</li>
+</ul>
+<p>Pros for packet switching:</p>
+<ul>
+<li>
+<p>Better efficiency</p>
+</li>
+<li>
+<p>Faster startup to first packet delivered</p>
+</li>
+<li>
+<p>Easier recovery from failure</p>
+</li>
+<li>
+<p>Simpler implementation (avoids dynamic per-flow state management in switches)</p>
+</li>
+</ul>
+<h2 id="what-does-the-internet-use-today">What does the Internet Use Today?<a class="headerlink" href="#what-does-the-internet-use-today" title="Permanent link">¶</a></h2>
+<p>Packet swtiching is the default --&gt; the public Internet</p>
+<ul>
+<li>Limited use of RSVP (Resource Reservation Protocol) within one domain</li>
+</ul>
+<p>But you can also buy a dedicated circuit (e.g., MPLS circuits, leased lines, etc.) often used by enterprises from one branch location to another (or to/from cloud)</p>
+<ul>
+<li>
+<p>Very expensive (e.g., 10-20x higher than a normal connection)</p>
+</li>
+<li>
+<p>Often statically set up (manually), long-lived (e.g., years) and per user (vs. per flow)</p>
+</li>
+<li>
+<p>So, a far cry from the vision of dynamic reservations that we just discussed</p>
+</li>
+</ul>
+<h2 id="circuit-vs-packet-switching-a-bit-of-history">Circuit vs. Packet Switching: A Bit of History<a class="headerlink" href="#circuit-vs-packet-switching-a-bit-of-history" title="Permanent link">¶</a></h2>
+<p>The early Internet (70s-80s) packet switched. Well suited to bursty file transfer applications. </p>
+<p>The next iteration (80s-90s): research and industry believed we would need circuit switching</p>
+<ul>
+<li>
+<p>Envisioned that voice/live TV/ would be the Internet's true killer app</p>
+</li>
+<li>
+<p>Spent 10+ years trying to realize this vision (man Berkeley folks were pioneers in this space!)</p>
+</li>
+</ul>
+<p>Ultimately a failed vision. Why? All the reasons we discussed... but also</p>
+<ul>
+<li>
+<p>The killer app became the email and the Web</p>
+</li>
+<li>
+<p>People rewrote apps to be adaptive (turns out we didn't really need guaranteed BW)</p>
+</li>
+</ul>
+<p>This is a lesson in how technology can transform user behavior!</p>
+<h2 id="more-about-packet-switching">More About Packet Switching<a class="headerlink" href="#more-about-packet-switching" title="Permanent link">¶</a></h2>
+<p>Recall, packets in flight: pipe view.</p>
+<p><img alt="2.3 Pipe.png" src="../2.3%20Pipe.png"/></p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<nav aria-label="Footer" class="md-footer__inner md-grid">
+<a aria-label="Previous: 2. How the Internet Works - A Bottom-Up View" class="md-footer__link md-footer__link--prev" href="../2.%20How%20the%20Internet%20Works%20-%20A%20Bottom-Up%20View/" rel="prev">
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+</div>
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Previous
+              </span>
+              2. How the Internet Works - A Bottom-Up View
+            </div>
+</div>
+</a>
+<a aria-label="Next: 4. Designing the Internet" class="md-footer__link md-footer__link--next" href="../4.%20Designing%20the%20Internet/" rel="next">
+<div class="md-footer__title">
+<div class="md-ellipsis">
+<span class="md-footer__direction">
+                Next
+              </span>
+              4. Designing the Internet
+            </div>
+</div>
+<div class="md-footer__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
+</div>
+</a>
+</nav>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../../../../..", "features": [], "search": "../../../../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+<script src="../../../../../assets/javascripts/bundle.37e9125f.min.js"></script>
+<script src="../../../../../javascripts/mathjax.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</body>
+</html>
